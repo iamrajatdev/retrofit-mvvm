@@ -1,11 +1,20 @@
 package com.example.retrofitmvvmtest
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+class MainActivity : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+        @SuppressLint("MissingPermission")
+        fun isNetworkConnected(): Boolean {
+            val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork = cm.activeNetworkInfo
+            return activeNetwork?.isConnected ?: false
+        }
     }
 }
