@@ -17,7 +17,6 @@ class LoginViewModel : ViewModel() {
 
     var toastMessage = MutableLiveData<String>()
     var toastNetwork = MutableLiveData<String>()
-    var userMutableLiveData: MutableLiveData<LoginResponse> = MutableLiveData()
     private var userService: UserService? = RetrofitRequest.getRetrofitInstance()?.create(UserService::class.java)
 
     fun fetchLogin(loginRequest: LoginRequest) {
