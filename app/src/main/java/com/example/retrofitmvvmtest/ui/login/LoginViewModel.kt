@@ -1,52 +1,40 @@
 package com.example.retrofitmvvmtest.ui.login
 
-import android.content.Context
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.retrofitmvvmtest.model.remote.NetWorkConnection
-import com.example.retrofitmvvmtest.model.remote.UserService
+import androidx.lifecycle.viewModelScope
+import com.example.retrofitmvvmtest.MainActivity
+import com.example.retrofitmvvmtest.data.repository.PageStoreRepository
 import com.example.retrofitmvvmtest.model.request.LoginRequest
 import com.example.retrofitmvvmtest.model.response.LoginResponse
-import com.example.retrofitmvvmtest.model.retrofit.RetrofitRequest
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.retrofitmvvmtest.utils.Resource
+import com.example.retrofitmvvmtest.utils.Utils
+import kotlinx.coroutines.launch
+import java.io.IOException
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
-    var toastMessage = MutableLiveData<String>()
-    var toastNetwork = MutableLiveData<String>()
-    private var userService: UserService? = RetrofitRequest.getRetrofitInstance()?.create(UserService::class.java)
+    var loginResponse = MutableLiveData<Resource<LoginResponse>>()
+    private var repository: PageStoreRepository = PageStoreRepository()
 
     fun fetchLogin(loginRequest: LoginRequest) {
-        val call: Call<LoginResponse?>? = userService?.login(loginRequest)
-        call?.enqueue(object : Callback<LoginResponse?> {
-            override fun onResponse(
-                call: Call<LoginResponse?>,
-                response: Response<LoginResponse?>
-            ) {
-                if (response.isSuccessful && response.body() != null) {
-                    toastMessage.setValue("User Success")
-                } else {
-                    try {
-                        val jsonObject = JSONObject(response.errorBody().string())
-                        toastMessage.setValue(jsonObject.getString("error"))
-                    } catch (e: Exception) {
-                        e.printStackTrace()
+        loginResponse.postValue(Resource.Loading())
+
+        if (Utils.hasInternetConnection(getApplication())) {
+            viewModelScope.launch {
+                val response = repository.getLogin(loginRequest)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        loginResponse.postValue(Resource.Success(it))
                     }
+                } else {
+                    loginResponse.postValue(Resource.Error("Error response"))
                 }
             }
-
-            override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {}
-        })
-    }
-
-    fun checkInternetConnectionWithMessage(context: Context): Boolean =
-        if (NetWorkConnection.isNetworkConnected(context)) {
-            true
         } else {
-            toastNetwork.postValue("Error network")
-            false
+            loginResponse.postValue(Resource.Error("No internet"))
         }
+    }
 }
