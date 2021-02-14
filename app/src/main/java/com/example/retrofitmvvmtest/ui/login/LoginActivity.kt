@@ -6,7 +6,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+<<<<<<< HEAD
 import androidx.lifecycle.ViewModelProviders
+=======
+import androidx.lifecycle.ViewModelProvider
+>>>>>>> room-implementation
 import com.example.retrofitmvvmtest.R
 import com.example.retrofitmvvmtest.databinding.ActivityLoginBinding
 import com.example.retrofitmvvmtest.model.request.LoginRequest
@@ -25,7 +29,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupUI() {
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+<<<<<<< HEAD
         loginViewModel = ViewModelProviders.of(this@LoginActivity).get(LoginViewModel::class.java)
+=======
+        loginViewModel = ViewModelProvider(this@LoginActivity).get(LoginViewModel::class.java)
+>>>>>>> room-implementation
         activityLoginBinding.viewmodel = loginViewModel
     }
 

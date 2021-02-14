@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+<<<<<<< HEAD
 
+=======
+>>>>>>> room-implementation
         <variable
             name="viewmodel"
             type="com.example.retrofitmvvmtest.ui.login.LoginViewModel" />
@@ -59,7 +62,10 @@
 
         <ProgressBar
             android:id="@+id/progress"
+<<<<<<< HEAD
             android:layout_marginTop="20dp"
+=======
+>>>>>>> room-implementation
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"/>

@@ -5,7 +5,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+<<<<<<< HEAD
 import java.util.concurrent.TimeUnit
+=======
+>>>>>>> room-implementation
 
 
 object UserRetrofitRequest {
@@ -26,4 +29,11 @@ object UserRetrofitRequest {
     val loginApi: UserService by lazy {
         retrofitLogin!!.create(UserService::class.java)
     }
+<<<<<<< HEAD
+=======
+
+    val pageApi: UserService by lazy {
+        retrofitLogin!!.create(UserService::class.java)
+    }
+>>>>>>> room-implementation
 }
