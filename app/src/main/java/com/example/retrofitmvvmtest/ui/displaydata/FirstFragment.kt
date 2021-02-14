@@ -55,6 +55,8 @@ class FirstFragment : Fragment() {
                 adapterPageListAdapter.submitList(it.data)
                 recyclerView.adapter = adapterPageListAdapter
             }
+            Toast.makeText(activity, it.id, Toast.LENGTH_SHORT).show()
+            Log.e("Data stored", "Successfully stored $it")
         })
         return view
     }
