@@ -15,6 +15,6 @@ class DisplayActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragTransaction = fragmentManager.beginTransaction()
-        fragTransaction.add(R.id.display_fragment, fragment).commit()
+        fragTransaction.add(R.id.your_placeholder, fragment).commit()
     }
 }

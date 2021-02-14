@@ -61,6 +61,8 @@ dependencies {
     // Lifecycle Annotations
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "com.google.android.material:material:$support_library_version"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
 
 
 }
