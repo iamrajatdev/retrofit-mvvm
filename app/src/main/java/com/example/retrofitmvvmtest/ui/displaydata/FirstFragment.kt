@@ -47,6 +47,7 @@ class FirstFragment : Fragment() {
         })
 
         viewModel.getPageResponse().observe(viewLifecycleOwner, {
+            Toast.makeText(activity, it.id, Toast.LENGTH_SHORT).show()
             Log.e("Data stored", "Successfully stored $it")
         })
         return view
